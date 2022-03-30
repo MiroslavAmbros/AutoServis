@@ -4,10 +4,23 @@
  */
 package as.model;
 
+import javax.persistence.Entity;
+
 /**
  *
- * @author Miroslav
+ * @author CP
  */
-public class Djelatnik {
+@Entity
+public class Djelatnik extends Osoba{
     
+    private String iban;
+    
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
 }

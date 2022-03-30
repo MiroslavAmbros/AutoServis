@@ -1,13 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package as.model;
 
-/**
- *
- * @author Miroslav
- */
-public class Vlasnik {
+
+public class Vlasnik extends Osoba {
     
+    private String brojtelefona;
+
+    public String getbrojtelefona() {
+        return brojtelefona;
+    }
+
+    public void setbrojtelefona(String brojtelefona) {
+        this.brojtelefona = brojtelefona;
+    }
 }

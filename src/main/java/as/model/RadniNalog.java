@@ -1,13 +1,54 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package as.model;
 
-/**
- *
- * @author Miroslav
- */
-public class RadniNalog {
+import java.util.Date;
+
+
+public class RadniNalog extends Entitet {
     
+    private String rednibroj;
+    private Vozilo vozilo;
+    private String opisservisa;
+    private Date datum;
+    private Djelatnik djelatnik;
+
+    public String getRednibroj() {
+        return rednibroj;
+    }
+
+    public void setRednibroj(String rednibroj) {
+        this.rednibroj = rednibroj;
+    }
+
+    public Vozilo getVozilo() {
+        return vozilo;
+    }
+
+    public void setVozilo(Vozilo vozilo) {
+        this.vozilo = vozilo;
+    }
+
+    public String getOpisservisa() {
+        return opisservisa;
+    }
+
+    public void setOpisservisa(String opisservisa) {
+        this.opisservisa = opisservisa;
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
+
+    public Djelatnik getDjelatnik() {
+        return djelatnik;
+    }
+
+    public void setDjelatnik(Djelatnik djelatnik) {
+        this.djelatnik = djelatnik;
+    }
 }
