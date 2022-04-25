@@ -4,6 +4,9 @@
  */
 package as;
 
+import as.util.HibernateUtil;
+import as.util.PocetniInsert;
+
 /**
  *
  * @author Miroslav

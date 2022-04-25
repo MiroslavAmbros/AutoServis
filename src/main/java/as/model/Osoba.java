@@ -5,7 +5,7 @@ import javax.persistence.MappedSuperclass;
 
 
 @MappedSuperclass
-public abstract class Osoba extends Entitet{
+public class Osoba extends Entitet{
     
     private String ime;
     private String prezime;

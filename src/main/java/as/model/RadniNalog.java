@@ -2,14 +2,17 @@
 package as.model;
 
 import java.util.Date;
+import javax.persistence.OneToMany;
 
 
 public class RadniNalog extends Entitet {
     
     private String rednibroj;
+    @OneToMany
     private Vozilo vozilo;
     private String opisservisa;
     private Date datum;
+    @OneToMany
     private Djelatnik djelatnik;
 
     public String getRednibroj() {
