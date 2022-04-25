@@ -1,8 +1,9 @@
 
 package as.model;
 
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-
+@Entity
 public class Vozilo extends Entitet {
     private String registracija;
     private String brojsasije;

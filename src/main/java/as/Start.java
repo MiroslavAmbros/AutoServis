@@ -6,6 +6,7 @@ package as;
 
 import as.util.HibernateUtil;
 import as.util.PocetniInsert;
+import as.view.SplashScreen;
 
 /**
  *
@@ -13,6 +14,8 @@ import as.util.PocetniInsert;
  */
 public class Start {
     public static void main(String[] args) {
-        
+        PocetniInsert.izvedi();
+        PocetniInsert.unosOperatera();
+        new SplashScreen().setVisible(true);
     }
 }

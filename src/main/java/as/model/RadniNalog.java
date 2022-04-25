@@ -2,17 +2,19 @@
 package as.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
+@Entity
 public class RadniNalog extends Entitet {
     
     private String rednibroj;
-    @OneToMany
+    @ManyToOne
     private Vozilo vozilo;
     private String opisservisa;
     private Date datum;
-    @OneToMany
+    @ManyToOne
     private Djelatnik djelatnik;
 
     public String getRednibroj() {

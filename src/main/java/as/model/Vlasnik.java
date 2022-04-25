@@ -1,7 +1,9 @@
 
 package as.model;
 
+import javax.persistence.Entity;
 
+@Entity
 public class Vlasnik extends Osoba {
     
     private String brojtelefona;

@@ -1,20 +1,81 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package as.view;
+
+import as.util.HibernateUtil;
+import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *
  * @author Miroslav
  */
-public class SplashScreen extends javax.swing.JPanel {
+public class SplashScreen extends javax.swing.JFrame {
+
+    private int i = 0;
+    private boolean hibernateGotov;
 
     /**
      * Creates new form SplashScreen
      */
     public SplashScreen() {
         initComponents();
+        postavke();
+    }
+    
+    private void postavke(){
+        i = 0;
+        hibernateGotov = false;
+        Ucitanje ucitanje = new Ucitanje();
+        ucitanje.start();
+
+        TijekUcitanja tijekUcitanja = new TijekUcitanja();
+        tijekUcitanja.start();
+    }
+
+    private class TijekUcitanja extends Thread {
+
+        @Override
+        public void run() {
+            if (hibernateGotov) {
+                return;
+            }
+            try {
+                pbUcitanje.setValue(++i);
+                Thread.sleep(1000);
+                run();
+            } catch (InterruptedException ex) {
+                
+            }
+        }
+
+    }
+
+    private class Ucitanje extends Thread {
+
+        @Override
+        public void run() {
+            Session s = HibernateUtil.getSession();
+            if (s.getMetamodel().getEntities().size() > 0) {
+                hibernateGotov = true;
+                for (int t = i; t < 100; t++) {
+                    try {
+                        pbUcitanje.setValue(++i);
+                        Thread.sleep(3);
+                    } catch (InterruptedException ex) {
+                       
+                    }
+                }
+
+                new Autorizacija().setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(getRootPane(), "Problem s povezivanje na bazu");
+            }
+        }
+
     }
 
     /**
@@ -26,19 +87,69 @@ public class SplashScreen extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jLabel1 = new javax.swing.JLabel();
+        pbUcitanje = new javax.swing.JProgressBar();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/splash.jpg"))); // NOI18N
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(pbUcitanje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(pbUcitanje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(SplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(SplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(SplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(SplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new SplashScreen().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JProgressBar pbUcitanje;
     // End of variables declaration//GEN-END:variables
 }

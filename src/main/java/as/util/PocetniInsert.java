@@ -5,8 +5,10 @@
  */
 package as.util;
 
+import as.model.Djelatnik;
 import as.model.Operater;
 import as.model.Osoba;
+import as.model.Vlasnik;
 import com.github.javafaker.Faker;
 
 import java.math.BigDecimal;
@@ -29,11 +31,10 @@ public class PocetniInsert {
         session.beginTransaction();
 
         Operater o = new Operater();
-        o.setIme("Eduard");
-        o.setPrezime("Kuzma");
+        o.setKorisnickoime("zdenko");
         o.setUloga("oper");
      
-        o.setLozinka(BCrypt.hashpw("e", BCrypt.gensalt()));
+        o.setLozinka(BCrypt.hashpw("z", BCrypt.gensalt()));
         session.save(o);
         session.getTransaction().commit();
     }
@@ -51,6 +52,47 @@ public class PocetniInsert {
         return osobe;
     }
     
- 
+ public static void izvedi() {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        Faker faker = new Faker();
 
+        List<Djelatnik> djelatnik = generirajDjelatnike(faker, session);
+        List<Vlasnik> vlasnik = generirajVlasnike(faker, session);
+        
+       
+        session.getTransaction().commit();
+
+    }
+  private static List<Djelatnik> generirajDjelatnike(Faker faker, Session session) {
+        List<Djelatnik> djelatnici = new ArrayList();
+        Djelatnik d;
+        for (int i = 0; i < 5; i++) {
+            d = new Djelatnik();
+            d.setIme(faker.name().firstName());
+            d.setPrezime(faker.name().lastName());
+            d.setOib(EdunovaUtil.generirajOib());
+            d.setIban("");
+            session.save(d);
+            djelatnici.add(d);
+            System.out.println("Krierao djelatnika: " + d.getIme() + " " + d.getOib());
+        }
+        return djelatnici;
+    }
+
+    private static List<Vlasnik> generirajVlasnike(Faker faker, Session session) {
+        List<Vlasnik> vlasnici = new ArrayList();
+        Vlasnik v;
+        for (int i = 0; i < 20; i++) {
+            v = new Vlasnik();
+            v.setIme(faker.name().firstName());
+            v.setPrezime(faker.name().lastName());
+            v.setOib(EdunovaUtil.generirajOib());
+            
+            session.save(v);
+            vlasnici.add(v);
+            System.out.println("Krierao vlasnika: " + v.getIme() + " " +v.getOib());
+        }
+        return vlasnici;
+    }
 }
