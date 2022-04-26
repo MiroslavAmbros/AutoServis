@@ -4,7 +4,6 @@
  */
 package as.view;
 
-import as.controller.Obrada;
 import as.controller.ObradaVlasnik;
 import as.controller.ObradaVozilo;
 import as.model.Vlasnik;
