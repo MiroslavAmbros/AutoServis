@@ -23,9 +23,8 @@ public class Autorizacija extends javax.swing.JFrame {
     
     private ObradaOperater obradaOperater;
 
-    /**
-     * Creates new form Autorizacija
-     */
+   
+    
     public Autorizacija() {
         initComponents();
        postavke();
@@ -63,6 +62,11 @@ public class Autorizacija extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
             }
         });
         txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -172,6 +176,10 @@ public class Autorizacija extends javax.swing.JFrame {
          txtLozinka.setBackground(Color.WHITE);
     }//GEN-LAST:event_txtLozinkaFocusLost
 
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
     private void autorizacija(){
         if(txtEmail.getText().trim().isEmpty()){
             txtEmail.requestFocus();
@@ -183,13 +191,7 @@ public class Autorizacija extends javax.swing.JFrame {
             return;
         } 
          
-          try {
-            InternetAddress emailAddr = new InternetAddress(txtEmail.getText());
-            emailAddr.validate();
-        } catch (AddressException ex) {
-            txtEmail.requestFocus();
-            return;
-        }
+       
          
          // ovdje si siguran da su uneseni email i lozinka
          Operater operater = obradaOperater.autoriziraj(txtEmail.getText(), new String(txtLozinka.getPassword()));
@@ -201,7 +203,7 @@ public class Autorizacija extends javax.swing.JFrame {
          
          EdunovaUtil.operater=operater;
          
-        //new Izbornik().setVisible(true);
+        new Izbornik().setVisible(true);
          dispose();
          
          

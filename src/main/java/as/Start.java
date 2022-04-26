@@ -14,8 +14,8 @@ import as.view.SplashScreen;
  */
 public class Start {
     public static void main(String[] args) {
-        PocetniInsert.izvedi();
-        PocetniInsert.unosOperatera();
+       // PocetniInsert.izvedi();
+        //PocetniInsert.unosOperatera();
         new SplashScreen().setVisible(true);
     }
 }
