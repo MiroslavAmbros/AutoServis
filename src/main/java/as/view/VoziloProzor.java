@@ -9,9 +9,11 @@ import as.controller.ObradaVlasnik;
 import as.controller.ObradaVozilo;
 import as.model.Vlasnik;
 import as.model.Vozilo;
+import as.util.AsException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,20 +25,23 @@ public class VoziloProzor extends javax.swing.JFrame {
      * Creates new form VoziloProzor
      */
     private ObradaVozilo obrada;
+
     public VoziloProzor() {
         initComponents();
-        obrada= new ObradaVozilo();
+        obrada = new ObradaVozilo();
         ucitaj();
     }
-    private void ucitaj(){
+
+    private void ucitaj() {
         DefaultListModel<Vozilo> m = new DefaultListModel<>();
         List<Vozilo> entiteti;
-       entiteti = obrada.read();
-       m.addAll(entiteti);
-       ucitajVlasnike();
+        entiteti = obrada.read();
+        m.addAll(entiteti);
+        ucitajVlasnike();
         lstEntiteti.setModel(m);
     }
-    private void ucitajVlasnike(){
+
+    private void ucitajVlasnike() {
         DefaultComboBoxModel<Vlasnik> ms = new DefaultComboBoxModel<>();
         Vlasnik vlasnik = new Vlasnik();
         vlasnik.setSifra(Long.valueOf(0));
@@ -48,12 +53,14 @@ public class VoziloProzor extends javax.swing.JFrame {
         });
         cbmVlasnik.setModel(ms);
     }
-private void preuzmiVrijednosti() {
+
+    private void preuzmiVrijednosti() {
         var e = obrada.getEntitet();
         e.setBrojsasije(txtSasija.getText().trim());
         e.setRegistracija(txtReg.getText().trim());
         e.setVlasnik((Vlasnik) cbmVlasnik.getSelectedItem());
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,9 +84,19 @@ private void preuzmiVrijednosti() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lstEntiteti.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstEntitetiValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstEntiteti);
 
         btnDodaj.setText("Dodaj");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
 
         btnObrisi.setText("Obriši");
 
@@ -90,6 +107,11 @@ private void preuzmiVrijednosti() {
         jLabel3.setText("Vlasnik");
 
         btnIzmjeni.setText("Izmjeni");
+        btnIzmjeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzmjeniActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,10 +164,58 @@ private void preuzmiVrijednosti() {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        try {
 
-    
+            obrada.setEntitet(new Vozilo());
+
+            preuzmiVrijednosti();
+            obrada.create();
+            ucitaj();
+
+        } catch (AsException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+        }
+    }//GEN-LAST:event_btnDodajActionPerformed
+
+    private void btnIzmjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmjeniActionPerformed
+        List<Vozilo> entiteti = obrada.read();
+        var red = lstEntiteti.getSelectedIndex();
+        obrada.setEntitet(entiteti.get(red));
+        if (obrada.getEntitet() == null) {
+            JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberite stavku");
+            return;
+        }
+
+        try {
+
+            preuzmiVrijednosti();
+            obrada.update();
+            JOptionPane.showMessageDialog(getRootPane(), "Promjenjeno");
+            ucitaj();
+
+        } catch (AsException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIzmjeniActionPerformed
+
+    private void lstEntitetiValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstEntitetiValueChanged
+        if (evt.getValueIsAdjusting() || lstEntiteti.getSelectedValue() == null) {
+            return;
+        }
+        obrada.setEntitet(lstEntiteti.getSelectedValue());
+        var e = obrada.getEntitet();
+        txtSasija.setText(e.getBrojsasije());
+        txtReg.setText(e.getRegistracija());
+        cbmVlasnik.setSelectedItem(e.getVlasnik());
+        
+       
+    }//GEN-LAST:event_lstEntitetiValueChanged
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnIzmjeni;

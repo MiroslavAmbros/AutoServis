@@ -5,6 +5,7 @@
 package as.controller;
 
 import as.model.Vlasnik;
+import as.util.AsException;
 import java.util.List;
 
 /**
@@ -16,6 +17,20 @@ public class ObradaVlasnik extends ObradaOsoba<Vlasnik>{
     @Override
     public List<Vlasnik> read() {
         return session.createQuery("from Vlasnik").list();
+    }
+    @Override
+    protected void kontrolaCreate() throws AsException {
+
+    }
+
+    @Override
+    protected void kontrolaUpdate() throws AsException {
+
+    }
+
+    @Override
+    protected void kontrolaDelete() throws AsException {
+
     }
     
     
