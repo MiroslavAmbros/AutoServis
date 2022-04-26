@@ -99,6 +99,11 @@ public class VoziloProzor extends javax.swing.JFrame {
         });
 
         btnObrisi.setText("Obriši");
+        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Broj šasije");
 
@@ -132,8 +137,8 @@ public class VoziloProzor extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(cbmVlasnik, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtReg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
-                .addGap(89, 89, 89)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -211,9 +216,32 @@ public class VoziloProzor extends javax.swing.JFrame {
         txtSasija.setText(e.getBrojsasije());
         txtReg.setText(e.getRegistracija());
         cbmVlasnik.setSelectedItem(e.getVlasnik());
-        
-       
     }//GEN-LAST:event_lstEntitetiValueChanged
+
+    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+        List<Vozilo> entiteti = obrada.read();
+        var red = lstEntiteti.getSelectedIndex();
+        obrada.setEntitet(entiteti.get(red));
+        if (obrada.getEntitet() == null) {
+            JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberite stavku");
+            return;
+        }
+
+        if (JOptionPane.showConfirmDialog(
+                getRootPane(),
+                "Sigurno obrisati ?", "Brisanje", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        try {
+
+            obrada.delete();
+            JOptionPane.showMessageDialog(getRootPane(), "Obrisano");
+            ucitaj();
+        } catch (AsException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+        }
+    }//GEN-LAST:event_btnObrisiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
