@@ -8,12 +8,12 @@ package as.view;
  *
  * @author Miroslav
  */
-public class Djelatnici extends javax.swing.JFrame {
+public class DjelatniciProzor extends javax.swing.JFrame {
 
     /**
      * Creates new form Djelatnici
      */
-    public Djelatnici() {
+    public DjelatniciProzor() {
         initComponents();
     }
 

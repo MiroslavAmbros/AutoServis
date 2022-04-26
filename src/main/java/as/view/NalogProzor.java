@@ -8,12 +8,12 @@ package as.view;
  *
  * @author Miroslav
  */
-public class Nalog extends javax.swing.JFrame {
+public class NalogProzor extends javax.swing.JFrame {
 
     /**
      * Creates new form Nalog
      */
-    public Nalog() {
+    public NalogProzor() {
         initComponents();
     }
 

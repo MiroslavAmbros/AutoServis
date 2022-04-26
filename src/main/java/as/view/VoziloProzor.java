@@ -4,30 +4,56 @@
  */
 package as.view;
 
+import as.controller.Obrada;
+import as.controller.ObradaVlasnik;
+import as.controller.ObradaVozilo;
+import as.model.Vlasnik;
+import as.model.Vozilo;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Miroslav
  */
-public class Vozilo extends javax.swing.JFrame {
+public class VoziloProzor extends javax.swing.JFrame {
 
     /**
-     * Creates new form Vozilo
+     * Creates new form VoziloProzor
      */
-    public Vozilo() {
+    private ObradaVozilo obrada;
+    public VoziloProzor() {
         initComponents();
+        obrada= new ObradaVozilo();
+        ucitaj();
     }
     private void ucitaj(){
         DefaultListModel<Vozilo> m = new DefaultListModel<>();
         List<Vozilo> entiteti;
-        for(Vozilo v : entiteti){
-            m.addElement(v);
-        }
+       entiteti = obrada.read();
+       m.addAll(entiteti);
+       ucitajVlasnike();
         lstEntiteti.setModel(m);
     }
-
+    private void ucitajVlasnike(){
+         DefaultComboBoxModel<Vlasnik> ms = new DefaultComboBoxModel<>();
+        Vlasnik vlasnik = new Vlasnik();
+        vlasnik.setSifra(Long.valueOf(0));
+        vlasnik.setIme("Nije");
+        vlasnik.setPrezime("odabrano");
+        ms.addElement(vlasnik);
+        new ObradaVlasnik().read().forEach(s -> {
+            ms.addElement(s);
+        });
+        cbmVlasnik.setModel(ms);
+    }
+private void preuzmiVrijednosti() {
+        var e = obrada.getEntitet();
+        e.setBrojsasije(txtSasija.getText().trim());
+        e.setRegistracija(txtReg.getText().trim());
+        e.setVlasnik((Vlasnik) cbmVlasnik.getSelectedItem());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,8 +72,8 @@ public class Vozilo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtReg = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtVlasnik = new javax.swing.JTextField();
         btnIzmjeni = new javax.swing.JButton();
+        cbmVlasnik = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,16 +101,17 @@ public class Vozilo extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtSasija, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(txtReg, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtVlasnik, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnObrisi)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDodaj)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnIzmjeni)))
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                        .addComponent(btnIzmjeni))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cbmVlasnik, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtReg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
+                .addGap(89, 89, 89)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,7 +131,7 @@ public class Vozilo extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtVlasnik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbmVlasnik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
@@ -123,13 +150,13 @@ public class Vozilo extends javax.swing.JFrame {
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnIzmjeni;
     private javax.swing.JButton btnObrisi;
+    private javax.swing.JComboBox<Vlasnik> cbmVlasnik;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> lstEntiteti;
+    private javax.swing.JList<Vozilo> lstEntiteti;
     private javax.swing.JTextField txtReg;
     private javax.swing.JTextField txtSasija;
-    private javax.swing.JTextField txtVlasnik;
     // End of variables declaration//GEN-END:variables
 }

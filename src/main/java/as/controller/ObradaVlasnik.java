@@ -15,7 +15,8 @@ public class ObradaVlasnik extends ObradaOsoba<Vlasnik>{
 
     @Override
     public List<Vlasnik> read() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return session.createQuery("from Vlasnik").list();
     }
-    
+
+
 }
