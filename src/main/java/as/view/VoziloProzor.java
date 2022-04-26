@@ -82,7 +82,7 @@ public class VoziloProzor extends javax.swing.JFrame {
         btnIzmjeni = new javax.swing.JButton();
         cbmVlasnik = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lstEntiteti.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
