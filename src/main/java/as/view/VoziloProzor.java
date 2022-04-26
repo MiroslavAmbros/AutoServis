@@ -37,7 +37,7 @@ public class VoziloProzor extends javax.swing.JFrame {
         lstEntiteti.setModel(m);
     }
     private void ucitajVlasnike(){
-         DefaultComboBoxModel<Vlasnik> ms = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Vlasnik> ms = new DefaultComboBoxModel<>();
         Vlasnik vlasnik = new Vlasnik();
         vlasnik.setSifra(Long.valueOf(0));
         vlasnik.setIme("Nije");

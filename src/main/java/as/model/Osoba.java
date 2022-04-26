@@ -37,5 +37,12 @@ public class Osoba extends Entitet{
         this.oib = oib;
     }
 
+    @Override
+    public String toString() {
+        return ime + " "+prezime;
+    }
+    
+    
+
   
 }

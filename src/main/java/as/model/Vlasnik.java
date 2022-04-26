@@ -15,4 +15,8 @@ public class Vlasnik extends Osoba {
     public void setbrojtelefona(String brojtelefona) {
         this.brojtelefona = brojtelefona;
     }
+
+    
+    
+    
 }

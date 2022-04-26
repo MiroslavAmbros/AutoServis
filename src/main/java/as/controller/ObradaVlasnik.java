@@ -17,6 +17,8 @@ public class ObradaVlasnik extends ObradaOsoba<Vlasnik>{
     public List<Vlasnik> read() {
         return session.createQuery("from Vlasnik").list();
     }
+    
+    
 
 
 }
