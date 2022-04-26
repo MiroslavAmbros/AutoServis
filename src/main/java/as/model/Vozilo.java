@@ -42,4 +42,11 @@ public class Vozilo extends Entitet {
     public void setKilometraza(String kilometraza) {
         this.kilometraza = kilometraza;
     }
+
+    @Override
+    public String toString() {
+        return registracija;
+    }
+    
+    
 }

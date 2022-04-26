@@ -1,4 +1,3 @@
-
 package as.controller;
 
 import as.model.Osoba;
@@ -19,7 +18,7 @@ public abstract class ObradaOsoba<T extends Osoba> extends Obrada<T> {
 
     @Override
     protected void kontrolaUpdate() throws AsException {
-kontrolaIme();
+        kontrolaIme();
     }
 
     @Override
@@ -28,11 +27,11 @@ kontrolaIme();
     }
 
     private void kontrolaOib() throws AsException {
-        //https://github.com/domagojpa/oib-validation
         if (!OibValidation.checkOIB(entitet.getOib())) {
             throw new AsException("OIB nije formalno ispravan");
         }
     }
+
     private void kontrolaIme() throws AsException {
         if (!entitet.getIme().matches("\\p{L}+") || !entitet.getPrezime().matches("\\p{L}+")) {
             throw new AsException("Ime smije sadržavati samo slova");
