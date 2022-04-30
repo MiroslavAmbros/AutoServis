@@ -16,8 +16,18 @@ public class ObradaVlasnik extends ObradaOsoba<Vlasnik>{
 
     @Override
     public List<Vlasnik> read() {
-        return session.createQuery("from Vlasnik").list();
+        return session.createQuery("from Vlasnik a order by a.ime").list();
     }
+    
+    public List<Vlasnik> read(String uvjet) {
+        return session.createQuery("from Vlasnik p "
+                + " where concat(p.ime) "
+                + " like :uvjet order by p.ime")
+                .setParameter("uvjet","%" + uvjet + "%")
+                .setMaxResults(50)
+                .list();
+    }
+    
     @Override
     protected void kontrolaCreate() throws AsException {
 

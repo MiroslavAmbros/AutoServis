@@ -5,6 +5,7 @@
 package as.controller;
 
 import as.model.Djelatnik;
+import as.model.Vlasnik;
 import as.util.AsException;
 import java.util.List;
 
@@ -19,7 +20,17 @@ public class ObradaDjelatnik extends ObradaOsoba<Djelatnik> {
         return session.createQuery("from Djelatnik").list();
 
     }
-
+    
+    
+    public List<Djelatnik> read(String uvjet) {
+        return session.createQuery("from Djelatnik p "
+                + " where concat(p.ime) "
+                + " like :uvjet order by p.ime")
+                .setParameter("uvjet","%" + uvjet + "%")
+                .setMaxResults(50)
+                .list();
+    }
+    
     @Override
     protected void kontrolaCreate() throws AsException {
 
