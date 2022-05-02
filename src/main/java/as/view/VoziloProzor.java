@@ -101,6 +101,11 @@ public class VoziloProzor extends javax.swing.JFrame {
         });
 
         btnObrisi.setText("Obriši");
+        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Broj šasije");
 
@@ -246,6 +251,29 @@ public class VoziloProzor extends javax.swing.JFrame {
     private void btnNoviVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoviVActionPerformed
         new VlasniciProzor().setVisible(true);
     }//GEN-LAST:event_btnNoviVActionPerformed
+
+    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+       if (obrada.getEntitet() == null) {
+            JOptionPane.showMessageDialog(getRootPane(), "Prvo odaberite stavku");
+            return;
+        }
+
+        if(JOptionPane.showConfirmDialog(
+            getRootPane(),
+            "Sigurno obrisati \"" + obrada.getEntitet().getRegistracija()+ "\"?",
+            "Brisanje",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE)==JOptionPane.NO_OPTION){
+        return;
+        }
+
+        try {
+            obrada.delete();
+            ucitaj();
+        } catch (AsException ex) {
+            JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
+        }
+    }//GEN-LAST:event_btnObrisiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

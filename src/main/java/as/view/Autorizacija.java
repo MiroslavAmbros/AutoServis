@@ -8,11 +8,9 @@ package as.view;
 
 import as.controller.ObradaOperater;
 import as.model.Operater;
-import as.util.EdunovaUtil;
+import as.util.AsUtil;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,8 +29,8 @@ public class Autorizacija extends javax.swing.JFrame {
     }
     private void postavke(){
          obradaOperater = new ObradaOperater();
-        txtEmail.setText("zdenko");
-        txtLozinka.setText("z");
+        txtEmail.setText("Operater");
+        txtLozinka.setText("o");
        
     }
 
@@ -209,7 +207,7 @@ public class Autorizacija extends javax.swing.JFrame {
              return;
          }
          
-         EdunovaUtil.operater=operater;
+         AsUtil.operater=operater;
          
         new Izbornik().setVisible(true);
          dispose();

@@ -26,15 +26,27 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class PocetniInsert {
 
+    public static void unosAdmina() {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Operater o = new Operater();
+        o.setKorisnickoime("Admin");
+        o.setUloga("admin");
+     
+        o.setLozinka(BCrypt.hashpw("admin", BCrypt.gensalt()));
+        session.save(o);
+        session.getTransaction().commit();
+    }
     public static void unosOperatera() {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
         Operater o = new Operater();
-        o.setKorisnickoime("zdenko");
+        o.setKorisnickoime("Operater");
         o.setUloga("oper");
-     
-        o.setLozinka(BCrypt.hashpw("z", BCrypt.gensalt()));
+        o.setLozinka(BCrypt.hashpw("o", BCrypt.gensalt()));
+
         session.save(o);
         session.getTransaction().commit();
     }
@@ -71,7 +83,7 @@ public class PocetniInsert {
             d = new Djelatnik();
             d.setIme(faker.name().firstName());
             d.setPrezime(faker.name().lastName());
-            d.setOib(EdunovaUtil.generirajOib());
+            d.setOib(AsUtil.generirajOib());
             d.setIban("");
             session.save(d);
             djelatnici.add(d);
@@ -87,7 +99,7 @@ public class PocetniInsert {
             v = new Vlasnik();
             v.setIme(faker.name().firstName());
             v.setPrezime(faker.name().lastName());
-            v.setOib(EdunovaUtil.generirajOib());
+            v.setOib(AsUtil.generirajOib());
             
             session.save(v);
             vlasnici.add(v);
