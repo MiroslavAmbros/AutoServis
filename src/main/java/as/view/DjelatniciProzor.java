@@ -197,6 +197,7 @@ private void ucitaj() {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void listaDjelatnikaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaDjelatnikaValueChanged

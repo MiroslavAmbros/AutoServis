@@ -12,7 +12,7 @@ public abstract class ObradaOsoba<T extends Osoba> extends Obrada<T> {
 
     @Override
     protected void kontrolaCreate() throws AsException {
-        kontrolaOib();
+       
         kontrolaIme();
     }
 
@@ -26,11 +26,7 @@ public abstract class ObradaOsoba<T extends Osoba> extends Obrada<T> {
 
     }
 
-    private void kontrolaOib() throws AsException {
-        if (!OibValidation.checkOIB(entitet.getOib())) {
-            throw new AsException("OIB nije formalno ispravan");
-        }
-    }
+   
 
     private void kontrolaIme() throws AsException {
         if (!entitet.getIme().matches("\\p{L}+") || !entitet.getPrezime().matches("\\p{L}+")) {

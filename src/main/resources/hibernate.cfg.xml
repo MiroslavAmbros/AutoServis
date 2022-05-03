@@ -8,7 +8,7 @@
             
             <!--
 Potrebno je ručno kreirati bazu
-    create database asbase character set utf8mb4;
+    create database as character set utf8mb4;
  -->
         
 <hibernate-configuration>

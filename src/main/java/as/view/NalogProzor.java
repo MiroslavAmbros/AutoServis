@@ -17,11 +17,12 @@ import javax.swing.DefaultComboBoxModel;
 public class NalogProzor extends javax.swing.JFrame {
 
     /**
-     * Creates new form Nalog
+     * Creates new form NalogProzor
      */
     public NalogProzor() {
         initComponents();
         ucitajDjelatnike();
+        ucitajVozilo();
     }
     private void ucitajDjelatnike() {
         DefaultComboBoxModel<Djelatnik> ms = new DefaultComboBoxModel<>();
@@ -38,10 +39,10 @@ public class NalogProzor extends javax.swing.JFrame {
         private void ucitajVozilo() {
         DefaultComboBoxModel<Vozilo> vl = new DefaultComboBoxModel<>();
         Vozilo va = new Vozilo();
-        va.setSifra(Long.valueOf(0));
-        vl.addElement(va);
-        new ObradaVozilo().read().forEach(s -> {
-            vl.addElement(s);
+           va.setSifra(Long.valueOf(0));
+           va.setRegistracija(" Nije Odabrano");
+        new ObradaVozilo().read().forEach(d -> {
+            vl.addElement((Vozilo)d);
         });
         cmbVozilo.setModel(vl);
     }
@@ -84,6 +85,12 @@ public class NalogProzor extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
+
+        cmbDjelatnik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDjelatnikActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo vozilo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -153,6 +160,10 @@ public class NalogProzor extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
        new VoziloProzor().setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void cmbDjelatnikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDjelatnikActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDjelatnikActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
